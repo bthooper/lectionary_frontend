@@ -4,6 +4,7 @@ import SelectLectionary from "./SelectLectionary";
 import SelectSeason from "./SelectSeason";
 import SelectDay from "./SelectDay";
 import ShowReadings from "./ShowReadings";
+import Footer from "./Footer";
 
 class App extends React.Component {
   render() {
@@ -22,6 +23,7 @@ class App extends React.Component {
             <ShowReadings />
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

@@ -8,6 +8,15 @@ function NavBar() {
         <a href="#" className="item">
           About
         </a>
+        <a href="#" className="item">
+          Learn More
+        </a>
+        <a href="#" className="item">
+          Contact
+        </a>
+        <a href="#" className="item">
+          Notes
+        </a>
       </div>
     </div>
   );
