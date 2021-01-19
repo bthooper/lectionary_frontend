@@ -1,6 +1,6 @@
 function NavBar() {
   return (
-    <div className="ui fixed inverted menu">
+    <div className="ui fixed inverted violet menu">
       <div className="ui container">
         <a href="#" className="header item">
           Hooper's Lectionary Project
