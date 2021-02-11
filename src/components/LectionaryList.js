@@ -8,12 +8,10 @@ class LectionaryList extends React.Component {
   }
 
   renderOptions() {
+    console.log(this.props.lectionaries);
     return this.props.lectionaries.map((lectionary) => {
       return (
-        <option
-          value={lectionary.attributes.name}
-          key={lectionary.attributes.name}
-        >
+        <option value={lectionary.id} key={lectionary.id}>
           {lectionary.attributes.name}
         </option>
       );
