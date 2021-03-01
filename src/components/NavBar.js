@@ -1,22 +1,21 @@
+import { NavLink } from "react-router-dom";
+
 function NavBar() {
   return (
     <div className="ui fixed inverted violet menu">
       <div className="ui container">
-        <a href="#" className="header item">
+        <NavLink to="/" exact className="header item">
           Hooper's Lectionary Project
-        </a>
-        <a href="#" className="item">
+        </NavLink>
+        <NavLink to="/" exact className="item">
+          Home
+        </NavLink>
+        <NavLink to="/about" exact className="item">
           About
-        </a>
-        <a href="#" className="item">
-          Learn More
-        </a>
-        <a href="#" className="item">
-          Contact
-        </a>
-        <a href="#" className="item">
+        </NavLink>
+        <NavLink to="/notes" exact className="item">
           Notes
-        </a>
+        </NavLink>
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ class LectionaryList extends React.Component {
   }
 
   renderOptions() {
-    console.log(this.props.lectionaries);
     return this.props.lectionaries.map((lectionary) => {
       return (
         <option value={lectionary.id} key={lectionary.id}>
@@ -19,7 +18,6 @@ class LectionaryList extends React.Component {
   }
 
   render() {
-    console.dir(this.props);
     return (
       <div className="select-lectionary ui segment">
         <form className="ui form">
