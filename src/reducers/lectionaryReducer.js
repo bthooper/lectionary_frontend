@@ -6,11 +6,11 @@ export const lectionaryReducer = (lectionaries = [], action) => {
 };
 
 export const selectedLectionaryReducer = (
-  selectedLectionary = null,
+  selected = { name: null, owner: null, schedules: [] },
   action
 ) => {
   if (action.type === "SELECT_LECTIONARY") {
     return action.payload;
   }
-  return selectedLectionary;
+  return selected;
 };

@@ -35,6 +35,13 @@ class LectionaryList extends React.Component {
             </select>
           </div>
         </form>
+        {this.props.selectedLectionary.name ? (
+          <div>
+            <p>{this.props.selectedLectionary.owner}</p>
+          </div>
+        ) : (
+          <p>Select a lectionary above.</p>
+        )}
       </div>
     );
   }
@@ -43,6 +50,7 @@ class LectionaryList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     lectionaries: state.lectionaries,
+    selectedLectionary: state.selected_lectionary,
   };
 };
 

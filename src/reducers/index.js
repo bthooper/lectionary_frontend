@@ -7,6 +7,8 @@ import {
 
 export default combineReducers({
   lectionaries: lectionaryReducer,
-  selected_lectioanry: selectedLectionaryReducer,
-  // seasons: seasonsReducer,
+  selected_lectionary: selectedLectionaryReducer,
+  // selected_schedule: scheduleReducer,
+  // selected_season: seasonsReducer,
+  // selected_day: daysReducer,
 });
