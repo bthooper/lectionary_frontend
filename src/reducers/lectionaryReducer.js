@@ -14,3 +14,13 @@ export const selectedLectionaryReducer = (
   }
   return selected;
 };
+
+export const selectedScheduleReducer = (
+  selected = { name: null, days: [] },
+  action
+) => {
+  if (action.type === "SELECT_SCHEDULE") {
+    return action.payload;
+  }
+  return selected;
+};

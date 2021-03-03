@@ -1,19 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
+import { selectSchedule } from "../actions";
 
 class ScheduleList extends React.Component {
   renderSchedules() {
     return this.props.schedules.map((schedule) => {
       return (
-        <div className="ui item">
-          <a href="#">{schedule.attributes.name}</a>
+        <div
+          className="listitem ui item"
+          key={schedule.id}
+          onClick={(e) => this.props.selectSchedule("a")}
+        >
+          {schedule.attributes.name}
         </div>
       );
     });
   }
 
   render() {
-    console.log(this.props.schedules);
     if (this.props.schedules.length === 0) {
       return <div>Please select a lectionary.</div>;
     }
@@ -22,9 +26,7 @@ class ScheduleList extends React.Component {
         <h4>
           <i className="calendar icon"></i>Schedules
         </h4>
-        <div className="ui divided list link items">
-          {this.renderSchedules()}
-        </div>
+        <div className="ui divided list items">{this.renderSchedules()}</div>
       </div>
     );
   }
@@ -32,7 +34,10 @@ class ScheduleList extends React.Component {
 
 const mapStateToProps = (state) => {
   console.log(state);
-  return { schedules: state.selected_lectionary.schedules };
+  return {
+    schedules: state.selected_lectionary.schedules,
+    selectedSchedule: state.selected_schedule,
+  };
 };
 
-export default connect(mapStateToProps)(ScheduleList);
+export default connect(mapStateToProps, { selectSchedule })(ScheduleList);

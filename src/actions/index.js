@@ -51,3 +51,14 @@ export const fetchLectionaries = () => {
     });
   };
 };
+
+export const selectSchedule = (schedule) => {
+  return async function (dispatch) {
+    dispatch({
+      type: "SELECT_SCHEDULE",
+      payload: {
+        name: schedule,
+      },
+    });
+  };
+};
