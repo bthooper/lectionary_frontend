@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 class ScheduleList extends React.Component {
   renderSchedules() {
     return this.props.schedules.map((schedule) => {
-      return <li>{schedule.attributes.name}</li>;
+      return (
+        <div className="ui item">
+          <a href="#">{schedule.attributes.name}</a>
+        </div>
+      );
     });
   }
 
@@ -13,7 +17,16 @@ class ScheduleList extends React.Component {
     if (this.props.schedules.length === 0) {
       return <div>Please select a lectionary.</div>;
     }
-    return <ul>{this.renderSchedules()}</ul>;
+    return (
+      <div className="ui">
+        <h4>
+          <i className="calendar icon"></i>Schedules
+        </h4>
+        <div className="ui divided list link items">
+          {this.renderSchedules()}
+        </div>
+      </div>
+    );
   }
 }
 
