@@ -9,7 +9,7 @@ class ScheduleList extends React.Component {
         <div
           className="listitem ui item"
           key={schedule.id}
-          onClick={(e) => this.props.selectSchedule("a")}
+          onClick={(e) => this.props.selectSchedule(schedule.attributes.name)}
         >
           {schedule.attributes.name}
         </div>
@@ -18,6 +18,7 @@ class ScheduleList extends React.Component {
   }
 
   render() {
+    console.log(this.props.selectedSchedule);
     if (this.props.schedules.length === 0) {
       return <div>Please select a lectionary.</div>;
     }

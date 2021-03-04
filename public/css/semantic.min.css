@@ -28833,6 +28833,7 @@ body.pushable > .pusher {
 .listitem:hover {
   color: purple;
   cursor: pointer;
+  background-color: gray;
 }
 
 .selectedlistitem {
