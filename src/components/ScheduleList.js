@@ -6,19 +6,14 @@ class ScheduleList extends React.Component {
   renderSchedules() {
     return this.props.schedules.map((schedule) => {
       return (
-        <div
-          className="listitem ui item"
-          key={schedule.id}
-          onClick={(e) => this.props.selectSchedule(schedule.attributes.name)}
-        >
+        <option value={schedule.id} key={schedule.id}>
           {schedule.attributes.name}
-        </div>
+        </option>
       );
     });
   }
 
   render() {
-    console.log(this.props.selectedSchedule);
     if (this.props.schedules.length === 0) {
       return <div>Please select a lectionary.</div>;
     }
@@ -27,15 +22,32 @@ class ScheduleList extends React.Component {
         <h4>
           <i className="calendar icon"></i>Schedules
         </h4>
-        <div className="ui divided list items">{this.renderSchedules()}</div>
+        <div className="select-schedule ui">
+          <form className="ui form">
+            <div className="field">
+              <select
+                onChange={(e) =>
+                  this.props.selectSchedule(this.props.url, e.target.value)
+                }
+                name="schedule"
+                id="schedule"
+              >
+                <option value="" key="none">
+                  Select Schedule
+                </option>
+                {this.renderSchedules()}
+              </select>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
+    url: state.selected_lectionary.url,
     schedules: state.selected_lectionary.schedules,
     selectedSchedule: state.selected_schedule,
   };

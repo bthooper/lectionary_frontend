@@ -17,6 +17,7 @@ export const selectLectionary = (lectionary) => {
       dispatch({
         type: "SELECT_LECTIONARY",
         payload: {
+          url: `/lectionaries/${selected_lectionary.id}`,
           name: selected_lectionary.attributes.name,
           owner: selected_lectionary.attributes.owner,
           schedules: schedules,
@@ -26,6 +27,7 @@ export const selectLectionary = (lectionary) => {
       dispatch({
         type: "SELECT_LECTIONARY",
         payload: {
+          url: "",
           name: null,
           owner: null,
           schedules: [],
@@ -52,13 +54,36 @@ export const fetchLectionaries = () => {
   };
 };
 
-export const selectSchedule = (schedule) => {
+export const selectSchedule = (url, schedule) => {
   return async function (dispatch) {
-    dispatch({
-      type: "SELECT_SCHEDULE",
-      payload: {
-        name: schedule,
-      },
-    });
+    // check if schedule is not empty otherwise
+    // fetch the schedule data and seasons data for array and dispatch
+    // else return empty
+    //
+    if (schedule !== "") {
+      const response = await fetch(
+        `http://localhost:3000/${url}/schedules/${schedule}`
+      );
+      const responseJSON = await response.json();
+      const scheduleData = responseJSON.data;
+      console.log(scheduleData);
+      dispatch({
+        type: "SELECT_SCHEDULE",
+        payload: {
+          url: `${url}/schedules/${schedule}`,
+          name: scheduleData.attributes.name,
+          seasons: [],
+        },
+      });
+    } else {
+      dispatch({
+        type: "SELECT_SCHEDULE",
+        payload: {
+          url: ``,
+          name: "",
+          seasons: [],
+        },
+      });
+    }
   };
 };

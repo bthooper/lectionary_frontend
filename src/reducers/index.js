@@ -2,8 +2,8 @@ import { combineReducers } from "redux";
 import {
   lectionaryReducer,
   selectedLectionaryReducer,
-  selectedScheduleReducer,
 } from "./lectionaryReducer";
+import { selectedScheduleReducer } from "./scheduleReducer";
 // import { seasonsReducer } from "./seasonsReducer";
 
 export default combineReducers({
