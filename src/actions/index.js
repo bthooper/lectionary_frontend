@@ -61,18 +61,58 @@ export const selectSchedule = (url, schedule) => {
     // else return empty
     //
     if (schedule !== "") {
-      const response = await fetch(
+      const schedResponse = await fetch(
         `http://localhost:3000/${url}/schedules/${schedule}`
       );
-      const responseJSON = await response.json();
-      const scheduleData = responseJSON.data;
-      console.log(scheduleData);
+      const schedResponseJSON = await schedResponse.json();
+      const scheduleData = schedResponseJSON.data;
+      const seasonsResponse = await fetch(
+        `http://localhost:3000/${url}/schedules/${schedule}/seasons`
+      );
+      const seasonsResponseJSON = await seasonsResponse.json();
+      const seasonsData = seasonsResponseJSON.data;
       dispatch({
         type: "SELECT_SCHEDULE",
         payload: {
           url: `${url}/schedules/${schedule}`,
           name: scheduleData.attributes.name,
+          seasons: seasonsData,
+        },
+      });
+    } else {
+      dispatch({
+        type: "SELECT_SCHEDULE",
+        payload: {
+          url: ``,
+          name: "",
           seasons: [],
+        },
+      });
+    }
+  };
+};
+
+export const selectSeason = (url, season) => {
+  return async function (dispatch) {
+    if (season !== "") {
+      const seasonResponse = await fetch(
+        `http://localhost:3000/${url}/seasons/${season}`
+      );
+      const seasonResponseJSON = await seasonResponse.json();
+      const seasonData = seasonResponseJSON.data;
+      const daysResponse = await fetch(
+        `http://localhost:3000/${url}/seasons/${season}/days`
+      );
+      const daysResponseJSON = await daysResponse.json();
+      const daysData = daysResponseJSON.data;
+      console.log(season);
+      console.log(daysData);
+      dispatch({
+        type: "SELECT_SEASON",
+        payload: {
+          url: `${url}/seasons/${season}`,
+          name: seasonData.attributes.name,
+          days: daysData,
         },
       });
     } else {

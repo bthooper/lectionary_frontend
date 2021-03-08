@@ -15,10 +15,10 @@ class ScheduleList extends React.Component {
 
   render() {
     if (this.props.schedules.length === 0) {
-      return <div>Please select a lectionary.</div>;
+      return <div className="item">Please select a lectionary.</div>;
     }
     return (
-      <div className="ui">
+      <div className="item">
         <h4>
           <i className="calendar icon"></i>Schedules
         </h4>

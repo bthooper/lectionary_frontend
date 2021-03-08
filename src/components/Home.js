@@ -13,9 +13,11 @@ class Home extends React.Component {
           <LectionaryList />
         </div>
         <div className="four wide column">
-          <ScheduleList />
-          <SeasonList />
-          <SelectDay />
+          <div className="ui relaxed divided list">
+            <ScheduleList />
+            <SeasonList />
+            <SelectDay />
+          </div>
         </div>
         <div className="twelve wide column">
           <ShowReadings />
