@@ -5,7 +5,7 @@ class ShowReadings extends React.Component {
   renderReadings() {
     return this.props.readings.map((reading) => {
       return (
-        <div className="item">
+        <div className="item" key={reading.id}>
           <div className="header">{reading.reading_type}</div>
           {reading.reference}
         </div>
@@ -17,7 +17,6 @@ class ShowReadings extends React.Component {
     if (this.props.readings.length === 0) {
       return <div></div>;
     }
-    console.log(this.props.readings[0].reading_type);
     return (
       <div>
         <h3>{this.props.day}</h3>

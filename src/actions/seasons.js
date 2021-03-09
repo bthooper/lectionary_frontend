@@ -11,8 +11,6 @@ export const selectSeason = (url, season) => {
       );
       const daysResponseJSON = await daysResponse.json();
       const daysData = daysResponseJSON.data;
-      console.log(season);
-      console.log(daysData);
       dispatch({
         type: "SELECT_SEASON",
         payload: {
