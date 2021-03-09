@@ -12,14 +12,14 @@ class Home extends React.Component {
         <div className="sixteen wide column">
           <LectionaryList />
         </div>
-        <div className="four wide column">
+        <div className="five wide column">
           <div className="ui relaxed divided list">
             <ScheduleList />
             <SeasonList />
             <SelectDay />
           </div>
         </div>
-        <div className="twelve wide column">
+        <div className="eleven wide column">
           <ShowReadings />
         </div>
       </div>

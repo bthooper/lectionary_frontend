@@ -7,7 +7,7 @@ class SelectDay extends React.Component {
     return this.props.days.map((day) => {
       return (
         <button
-          className="ui day-select button"
+          className="ui day-select button fluid"
           key={day.id}
           onClick={(e) => {
             e.preventDefault();
