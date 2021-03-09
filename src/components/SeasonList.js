@@ -15,7 +15,7 @@ class SeasonList extends React.Component {
 
   render() {
     if (this.props.seasons.length === 0) {
-      return <div className="item">Please select a schedule.</div>;
+      return <div></div>;
     }
     return (
       <div className="item">

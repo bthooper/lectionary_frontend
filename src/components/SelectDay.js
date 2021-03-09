@@ -6,19 +6,31 @@ class SelectDay extends React.Component {
   renderDays() {
     return this.props.days.map((day) => {
       return (
-        <a class="active item" onClick={(e) => this.props.selectDay(e)}>
+        <button
+          className="ui day-select button"
+          key={day.id}
+          onClick={(e) => {
+            e.preventDefault();
+            this.props.selectDay(`${this.props.url}/days/${day.id}`);
+          }}
+        >
           {day.attributes.name}
-        </a>
+        </button>
       );
     });
   }
   render() {
+    if (this.props.days.length === 0) {
+      return <div></div>;
+    }
     return (
       <div className="item">
         <h4>
           <i className="sun icon"></i>Days
         </h4>
-        <div class="select-day ui link list">{this.renderDays()}</div>
+        <div id="select-day" className="ui">
+          {this.renderDays()}
+        </div>
       </div>
     );
   }

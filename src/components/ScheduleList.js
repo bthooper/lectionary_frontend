@@ -15,7 +15,7 @@ class ScheduleList extends React.Component {
 
   render() {
     if (this.props.schedules.length === 0) {
-      return <div className="item">Please select a lectionary.</div>;
+      return <div></div>;
     }
     return (
       <div className="item">

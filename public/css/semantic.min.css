@@ -28839,3 +28839,10 @@ body.pushable > .pusher {
 .selectedlistitem {
   color: purple;
 }
+
+#select-day .day-select {
+  border: 0;
+  padding: 0;
+  margin: 0 0 5px 0;
+  background-color: white;
+}

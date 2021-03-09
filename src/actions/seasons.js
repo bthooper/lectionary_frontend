@@ -23,11 +23,11 @@ export const selectSeason = (url, season) => {
       });
     } else {
       dispatch({
-        type: "SELECT_SCHEDULE",
+        type: "SELECT_SEASON",
         payload: {
           url: ``,
           name: "",
-          seasons: [],
+          days: [],
         },
       });
     }
