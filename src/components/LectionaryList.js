@@ -24,6 +24,7 @@ class LectionaryList extends React.Component {
           <div className="field">
             <label>Select Lectionary</label>
             <select
+              className="ui selection dropdown"
               onChange={(e) => this.props.selectLectionary(e.target.value)}
               name="lectionary"
               id="lectionary"
