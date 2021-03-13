@@ -15,7 +15,10 @@ class App extends React.Component {
           <NavBar />
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/notes" component={Notes} />
+          <Route
+            path="/notes"
+            render={(routerProps) => <Notes {...routerProps} />}
+          />
           <Footer />
         </div>
       </Router>

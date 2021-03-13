@@ -1,4 +1,5 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import NotesList from "./NotesList";
 import NoteDetail from "./NoteDetail";
 
@@ -6,23 +7,24 @@ class Notes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: [
-        {
+      notes: {
+        1: {
           id: 1,
           date: "January 2, 2021",
           title: "This is a great note.",
         },
-        {
+        2: {
           id: 2,
           date: "December 23, 2020",
           title: "Important things I learned.",
         },
-      ],
-      selected_note: {
-        id: 1,
-        date: "January 2, 2021",
-        title: "This is a great note.",
+        3: {
+          id: 3,
+          date: "October 2, 2020",
+          title: "A wonderful note I wrote.",
+        },
       },
+      selected_note: {},
     };
   }
 
@@ -38,7 +40,21 @@ class Notes extends React.Component {
               <NotesList notes={this.state.notes} />
             </div>
             <div className="eleven wide column">
-              <NoteDetail />
+              <Route
+                exact
+                path={`${this.props.match.url}`}
+                render={() => (
+                  <h4>
+                    Create a new note or choose a note from the note list.
+                  </h4>
+                )}
+              />
+              <Route
+                path={`${this.props.match.url}/:noteId`}
+                render={(routerProps) => (
+                  <NoteDetail {...routerProps} notes={this.state.notes} />
+                )}
+              />
             </div>
           </div>
         </div>

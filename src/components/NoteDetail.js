@@ -1,17 +1,10 @@
 import React from "react";
 
-const NoteDetail = (
-  props = {
-    selected_note: {
-      title: "",
-    },
-  }
-) => {
-  console.log(props);
+const NoteDetail = ({ match, notes }) => {
   return (
     <div>
-      <h4>Note Text</h4>
-      <p>Selected Note</p>
+      <h4>{notes[match.params.noteId].title}</h4>
+      <p>{notes[match.params.noteId].date}</p>
     </div>
   );
 };
