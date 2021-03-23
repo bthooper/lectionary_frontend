@@ -1,60 +1,47 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-const NotesList = ({ notes }) => {
+const NotesList = ({ notes, fetchNotes, selectNote }) => {
   const renderNotes = Object.keys(notes).map((noteId) => (
     <div className="item" key={noteId}>
-      <Link key={noteId} to={`/notes/${noteId}`}>
-        {notes[noteId].title}
-      </Link>
-      <div className="description">{notes[noteId].date}</div>
+      <a
+        key={noteId}
+        href={`/notes/${noteId}`}
+        onClick={(e) => selectNote(e, notes[noteId])}
+      >
+        {notes[noteId].attributes.title}
+      </a>
     </div>
   ));
 
+  const newNote = async () => {
+    const note = {
+      data: {
+        attributes: {
+          title: "Untitled Note",
+        },
+      },
+    };
+    await fetch("http://localhost:3000/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(note),
+    });
+    fetchNotes();
+  };
+
   return (
     <div>
-      <h4>Note List</h4>
-      {renderNotes}
+      <button className="mini ui right floated button" onClick={newNote}>
+        <i className="plus icon"></i>Add new note
+      </button>
+      <div>
+        <h4>Note List</h4>
+        {renderNotes}
+      </div>
     </div>
   );
 };
-
-// class NotesList extends React.Component {
-//   renderNotes() {
-//     return this.props.notes.map((note) => {
-//       return (
-//         <div className="item" key={note.id}>
-//           <a href={`/notes/${note.id}`} className="header">
-//             {note.title}
-//           </a>
-//           <div className="description">{note.date}</div>
-//         </div>
-//       );
-//     });
-//   }
-
-//   render() {
-//     if (this.props.notes.length > 0) {
-//       return (
-//         <div>
-//           <h4>Note List</h4>
-//           <div id="select-day" className="ui list">
-//             {this.renderNotes()}
-//           </div>
-//         </div>
-//       );
-//     } else {
-//       return (
-//         <div>
-//           <h4>No notes yet.</h4>
-//         </div>
-//       );
-//     }
-//   }
-// }
-
-// NotesList.defaultProps = {
-//   notes: [],
-// };
 
 export default NotesList;
