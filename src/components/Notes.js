@@ -1,9 +1,27 @@
 import React from "react";
-import { Route } from "react-router-dom";
 import NotesList from "./NotesList";
 import NoteDetail from "./NoteDetail";
+import NoteEdit from "./NoteEdit";
 
-const Notes = ({ notes, fetchNotes, selectNote, selected_note }) => {
+const Notes = ({
+  notes,
+  fetchNotes,
+  selectNote,
+  deleteNote,
+  selected_note,
+  match,
+}) => {
+  console.log(match);
+
+  const renderNoteDetail = (match) => {
+    if (match.params.id) {
+      return <NoteEdit note_id={match.params.id} url={match.path} />;
+    } else {
+      return (
+        <NoteDetail selected_note={selected_note} deleteNote={deleteNote} />
+      );
+    }
+  };
   return (
     <div className="ui grid container">
       <div className="sixteen wide column">
@@ -18,9 +36,7 @@ const Notes = ({ notes, fetchNotes, selectNote, selected_note }) => {
               fetchNotes={fetchNotes}
             />
           </div>
-          <div className="eleven wide column">
-            <NoteDetail selected_note={selected_note} />
-          </div>
+          <div className="eleven wide column">{renderNoteDetail(match)}</div>
         </div>
       </div>
     </div>

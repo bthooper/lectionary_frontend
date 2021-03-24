@@ -1,15 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const NotesList = ({ notes, fetchNotes, selectNote }) => {
   const renderNotes = Object.keys(notes).map((noteId) => (
     <div className="item" key={noteId}>
-      <a
-        key={noteId}
-        href={`/notes/${noteId}`}
-        onClick={(e) => selectNote(e, notes[noteId])}
-      >
+      <Link key={noteId} to={`/notes/${noteId}`}>
         {notes[noteId].attributes.title}
-      </a>
+      </Link>
     </div>
   ));
 
