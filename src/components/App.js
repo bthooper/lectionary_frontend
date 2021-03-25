@@ -63,7 +63,6 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/about" component={About} />
           <Route
-            exact
             path="/notes"
             render={(routerProps) => (
               <Notes
@@ -73,31 +72,6 @@ class App extends React.Component {
                 selected_note={this.state.selected_note}
                 selectNote={this.selectNote}
                 deleteNote={this.deleteNote}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/notes/:id"
-            render={(routerProps) => (
-              <Notes
-                {...routerProps}
-                notes={this.state.notes}
-                fetchNotes={this.fetchNotes}
-                selected_note={this.state.selected_note}
-                selectNote={this.selectNote}
-                deleteNote={this.deleteNote}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/notes/:id/edit"
-            render={(routerProps) => (
-              <Notes
-                {...routerProps}
-                notes={this.state.notes}
-                selected_note={this.state.selected_note}
               />
             )}
           />
