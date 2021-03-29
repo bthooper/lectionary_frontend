@@ -4,63 +4,80 @@ import NotesList from "./NotesList";
 import NoteDetail from "./NoteDetail";
 import NoteEdit from "./NoteEdit";
 
-const Notes = ({
-  notes,
-  fetchNotes,
-  selectNote,
-  deleteNote,
-  selected_note,
-  match,
-}) => {
-  console.log(match);
+class Notes extends React.Component {
+  state = {
+    notes: {},
+  };
 
-  function renderNoteDetail(match) {
-    if (match.url.slice(-4) === "edit") {
-      return <NoteEdit note_id={match.params.id} url={match.path} />;
-    } else {
-      return (
-        <NoteDetail selected_note={selected_note} deleteNote={deleteNote} />
-      );
-    }
+  fetchNotes = () => {
+    fetch("http://localhost:3000/notes")
+      .then((res) => res.json())
+      .then((data) => {
+        const notesData = data.data;
+        const notesObject = notesData.reduce(
+          (o, note) => ({ ...o, [note.id]: note }),
+          {}
+        );
+        this.setState({
+          notes: notesObject,
+        });
+      });
+  };
+
+  deleteNote = async (event, note) => {
+    event.preventDefault();
+    await fetch(`http://localhost:3000/notes/${note.id}`, {
+      method: "DELETE",
+    });
+    const { [note.id]: _, ...updatedNotes } = this.state.notes;
+    this.setState({
+      notes: updatedNotes,
+    });
+  };
+
+  componentDidMount() {
+    this.fetchNotes();
   }
-  return (
-    <div className="ui grid container">
-      <div className="sixteen wide column">
-        <div className="ui segment">
-          <h2>NOTES</h2>
-        </div>
-        <div className="ui grid container">
-          <div className="five wide column">
-            <NotesList
-              selectNote={selectNote}
-              notes={notes}
-              fetchNotes={fetchNotes}
-            />
+
+  render() {
+    return (
+      <div className="ui grid container">
+        <div className="sixteen wide column">
+          <div className="ui segment">
+            <h2>NOTES</h2>
           </div>
-          <div className="eleven wide column">
-            <Switch>
+          <div className="ui grid container">
+            <div className="five wide column">
+              <NotesList
+                notes={this.state.notes}
+                fetchNotes={this.fetchNotes}
+              />
+            </div>
+            <div className="eleven wide column">
               <Route
                 exact
-                path={`${match.url}/:noteId`}
-                render={() => {
-                  <NoteDetail
-                    selected_note={selected_note}
-                    deleteNote={deleteNote}
-                  />;
-                }}
+                path={"/notes/:id/edit"}
+                render={(routerProps) => (
+                  <NoteEdit {...routerProps} notes={this.state.notes} />
+                )}
               />
               <Route
-                path={`${match.url}/:noteId/edit`}
-                render={() => {
-                  <NoteEdit selected_note={selected_note} />;
-                }}
+                path={"/notes/:id"}
+                exact
+                render={(routerProps) => (
+                  <NoteDetail
+                    {...routerProps}
+                    notes={this.state.notes}
+                    deleteNote={this.deleteNote}
+                  />
+                )}
               />
-            </Switch>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Notes;
