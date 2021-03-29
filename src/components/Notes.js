@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import NotesList from "./NotesList";
 import NoteDetail from "./NoteDetail";
 import NoteEdit from "./NoteEdit";
@@ -58,7 +58,11 @@ class Notes extends React.Component {
                 exact
                 path={"/notes/:id/edit"}
                 render={(routerProps) => (
-                  <NoteEdit {...routerProps} notes={this.state.notes} />
+                  <NoteEdit
+                    {...routerProps}
+                    notes={this.state.notes}
+                    updateNote={this.updateNote}
+                  />
                 )}
               />
               <Route
