@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 
 class NoteEdit extends React.Component {
   state = {
-    title: "An example note",
-    content: "This is content that is hardcoded right now just for example.",
+    title: undefined,
+    content: undefined,
   };
 
   componentDidMount = () => {
-    const note = this.props.notes[this.props.match.params.id];
-    if (note !== undefined) {
+    // const note = this.props.notes[this.props.match.params.id];
+    if (this.note() !== undefined) {
       this.setState({
-        title: note.attributes.title,
-        content: note.attributes.content,
+        title: this.note().attributes.title,
+        content: this.note().attributes.content,
       });
     }
   };
@@ -40,7 +40,14 @@ class NoteEdit extends React.Component {
           </Link>
           <button
             className="mini ui right floated button green"
-            onClick={(e) => this.props.updateNote(e)}
+            onClick={(e) =>
+              this.props.updateNote(
+                e,
+                this.note(),
+                this.state.title,
+                this.state.content
+              )
+            }
           >
             <i className="icon disk"></i>
             Save
@@ -64,6 +71,7 @@ class NoteEdit extends React.Component {
                 onChange={(e) => this.handleChange(e)}
                 name="content"
                 value={this.state.content}
+                placeholder="Your content."
               ></textarea>
             </div>
           </form>

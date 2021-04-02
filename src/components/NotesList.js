@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NotesList = ({ notes, fetchNotes, selectNote }) => {
+const NotesList = ({ notes, fetchNotes }) => {
   const renderNotes = Object.keys(notes).map((noteId) => (
     <div className="item" key={noteId}>
       <Link key={noteId} to={`/notes/${noteId}`}>
@@ -25,7 +25,7 @@ const NotesList = ({ notes, fetchNotes, selectNote }) => {
       },
       body: JSON.stringify(note),
     });
-    fetchNotes();
+    await fetchNotes();
   };
 
   return (

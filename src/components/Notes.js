@@ -35,6 +35,20 @@ class Notes extends React.Component {
     });
   };
 
+  updateNote = async (event, note, title, content) => {
+    event.preventDefault();
+    const data = { title, content };
+    await fetch(`http://localhost:3000/notes/${note.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    this.fetchNotes();
+    this.props.history.push(`/notes/${note.id}`);
+  };
+
   componentDidMount() {
     this.fetchNotes();
   }
