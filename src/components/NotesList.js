@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const NotesList = ({ notes, fetchNotes }) => {
   const renderNotes = Object.keys(notes).map((noteId) => (
@@ -18,14 +18,14 @@ const NotesList = ({ notes, fetchNotes }) => {
         },
       },
     };
-    await fetch("http://localhost:3000/notes", {
+    const newNoteResponse = await fetch("http://localhost:3000/notes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(note),
     });
-    await fetchNotes();
+    const newNote = await newNoteResponse.json();
   };
 
   return (

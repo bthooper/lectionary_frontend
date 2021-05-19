@@ -7,6 +7,8 @@ import NoteEdit from "./NoteEdit";
 class Notes extends React.Component {
   state = {
     notes: {},
+    searchResults: null,
+    notesCount: 0,
   };
 
   fetchNotes = () => {
@@ -18,10 +20,28 @@ class Notes extends React.Component {
           (o, note) => ({ ...o, [note.id]: note }),
           {}
         );
-        this.setState({
-          notes: notesObject,
-        });
+        if (notesData.length > this.state.notesCount) {
+          this.setState({
+            notes: notesObject,
+          });
+        }
       });
+  };
+
+  searchNotes = (query) => {
+    const notesArray = Object.values(this.state.notes);
+    const searchArray = notesArray.filter((note) =>
+      note.attributes.title.includes(query)
+    );
+    const searchObject = searchArray.reduce(
+      (o, note) => ({ ...o, [note.id]: note }),
+      {}
+    );
+    console.table(searchObject);
+    this.setState({
+      ...this.state,
+      searchResults: searchObject,
+    });
   };
 
   deleteNote = async (event, note) => {
@@ -33,6 +53,25 @@ class Notes extends React.Component {
     this.setState({
       notes: updatedNotes,
     });
+  };
+
+  newNote = async () => {
+    const note = {
+      data: {
+        attributes: {
+          title: "Untitled Note",
+        },
+      },
+    };
+    const newNoteResponse = await fetch("http://localhost:3000/notes", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(note),
+    });
+    const newNote = await newNoteResponse.json();
+    this.props.history.push(`/notes/${newNote.id}/edit`);
   };
 
   updateNote = async (event, note, title, content) => {
@@ -53,6 +92,10 @@ class Notes extends React.Component {
     this.fetchNotes();
   }
 
+  componentDidUpdate() {
+    this.fetchNotes();
+  }
+
   render() {
     return (
       <div className="ui grid container">
@@ -60,10 +103,19 @@ class Notes extends React.Component {
           <div className="ui segment">
             <h2>NOTES</h2>
           </div>
+          <div>
+            <h2>Search</h2>
+            <form>
+              <input
+                type="text"
+                onChange={(e) => this.searchNotes(e.target.value)}
+              />
+            </form>
+          </div>
           <div className="ui grid container">
             <div className="five wide column">
               <NotesList
-                notes={this.state.notes}
+                notes={this.state.searchResults || this.state.notes}
                 fetchNotes={this.fetchNotes}
               />
             </div>
